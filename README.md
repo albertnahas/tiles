@@ -17,6 +17,6 @@ npm install
 # Starting the project
 
 ```bash
-npm install
+npm start
 ```
 on the root directory will start both projects

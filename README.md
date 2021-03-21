@@ -1,4 +1,5 @@
-## tiles
+### Tiles
+
 ## Installging dependencies
 
 1. Go to api directory and run

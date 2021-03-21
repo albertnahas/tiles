@@ -21,7 +21,7 @@ export default class AI {
         const history = [];
 
         while (!engine.checkWin()) {
-            const color = this.getMostFrequentColor(cluster.differentColoredAdjacents).val;
+            const color = this.getMostFrequentAdjacentsColor(cluster.differentColoredAdjacents, engine);
             engine.setOriginAndAdjacents(color);
             origin = engine.getOrigin();
             cluster = engine.getCluster(origin);
@@ -35,11 +35,48 @@ export default class AI {
         }
     }
     // Returns the most repeated color in array of Cells
-    getMostFrequentColor(cells: Cell[]) {
-        return cells.sort((a, b) =>
-            cells.filter(v => v.val === a.val).length
-            - cells.filter(v => v.val === b.val).length
-        ).pop();
+    getMostFrequentAdjacentsColor(cells: Cell[], engine: Engine) {
+        const colors = [...new Set(cells.map((c) => c.val))];
+        let colorsFreq = colors.map((color) => {
+            return {
+                val: color,
+                cells: [],
+                frequencey: 0,
+                boardFrequency: 0,
+            }
+        });
+
+        for (const cell of cells) {
+            const cluster = engine.getCluster(cell);
+            const color = colorsFreq.filter((c) => c.val === cell.val)[0];
+            if (color) {
+                color.cells = color.cells.concat(cluster.differentColoredAdjacents)
+            }
+        }
+        for (const color of colorsFreq) {
+            color.frequencey = this.unique(color.cells, ['x', 'y']).length;
+        }
+
+        colorsFreq = colorsFreq.sort((a, b) => a.frequencey - b.frequencey);
+        const topColor = colorsFreq[colorsFreq.length - 1];
+        let topColors = colorsFreq.filter((c) => c.val === topColor.val);
+        if (topColors.length === 1) {
+            return topColor.val;
+        }
+
+        for (const color of topColors) {
+            color.boardFrequency = engine.getColorOccurences(color.val);
+        }
+        topColors = topColors.sort((a, b) => b.boardFrequency - a.boardFrequency);
+        return topColors.pop().val
+    }
+
+    unique(arr: any[], keyProps: any[]) {
+        return Object.values(arr.reduce((uniqueMap, entry) => {
+            const key = keyProps.map(k => entry[k]).join('|');
+            if (!(key in uniqueMap)) uniqueMap[key] = entry;
+            return uniqueMap;
+        }, {}));
     }
 
 }

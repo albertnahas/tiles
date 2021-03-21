@@ -104,6 +104,14 @@ class Engine {
         const unique = [...new Set(array)];
         return unique.length;
     }
+    // Get the number of occurences for one color
+    getColorOccurences(color) {
+        let array = [];
+        for (const row of this.board) {
+            array = array.concat(row);
+        }
+        return array.filter((c) => c === color).length;
+    }
     // Return a copy of the current board
     cloneBoard() {
         const board = this.board.map((arr) => {

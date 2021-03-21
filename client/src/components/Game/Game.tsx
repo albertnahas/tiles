@@ -152,8 +152,8 @@ class Game extends React.Component {
       currentBoard: undefined,
       solvedByAI: false,
       started: false,
-      dimensions: 0,
-      colorsCount: 0,
+      dimensions: 2,
+      colorsCount: 2,
       userHistory: [],
       aiHistory: []
     })

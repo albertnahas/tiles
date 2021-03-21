@@ -1,0 +1,60 @@
+.SingleBoard {
+}
+
+.won div{
+    filter:blur(2px);
+}
+
+.xs {
+  width: 30px;
+  height: 30px;
+}
+
+.s {
+  width: 50px;
+  height: 50px;
+}
+
+.md {
+  width: 80px;
+  height: 80px;
+}
+
+.lg {
+  width: 150px;
+  height: 150px;
+}
+
+.xs-mini {
+  width: 10px;
+  height: 10px;
+}
+
+.s-mini {
+  width: 15px;
+  height: 15px;
+}
+
+.md-mini {
+  width: 20px;
+  height: 20px;
+}
+
+.lg-mini {
+  width: 30px;
+  height: 30px;
+}
+
+span {
+  animation: scaleUp ease 100ms;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

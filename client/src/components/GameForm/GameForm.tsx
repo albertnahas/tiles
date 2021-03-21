@@ -7,7 +7,7 @@ class GameForm extends React.Component<any> {
 
   render() {
 
-    const { dimensionsHandler, colorsHandler, onSubmit } = this.props;
+    const { colorsCount, dimensions, dimensionsHandler, colorsHandler, onSubmit } = this.props;
 
     return <Container className={styles.GameForm} fluid>
        <Row>
@@ -20,15 +20,16 @@ class GameForm extends React.Component<any> {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Dimensions</Form.Label>
-              <Form.Control min="0" max="10" onChange={dimensionsHandler} type="number" placeholder="Enter Dimension" />
+              <Form.Control value={dimensions} min="2" max="10" onChange={dimensionsHandler} type="number" placeholder="Enter Dimension" />
               <Form.Text  className="text-muted">
                 A number represents the dimensions of the board
+                (e.g., 3 will open the 3x3 board)
   </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Colors</Form.Label>
-              <Form.Control min="0" max="100" onChange={colorsHandler} type="number" placeholder="Enter Number of Colors" />
+              <Form.Control value={colorsCount} min="2" max="10" onChange={colorsHandler} type="number" placeholder="Enter Number of Colors" />
               <Form.Text className="text-muted">
                 A number represents the number of colors on the board
   </Form.Text>

@@ -40,10 +40,12 @@ class GameBoard extends React.Component<any> {
         </Col>
       </Row>
       <Row>
-        <Col  style={{ margin: "10px", textAlign:"center"}}>
+        {
+          !won && <Col  style={{ margin: "10px", textAlign:"center"}}>
           <Button onClick={solveWithAI} variant="primary" type="button">
             Solve with AI </Button>
         </Col>
+        }
       </Row>
 
     </Container >

@@ -1,0 +1,15 @@
+{
+  "name": "tiles",
+  "version": "1.0.0",
+  "description": "Tiles Game",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd api && npm run start\" \"cd client & yarn start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Albert Nahas",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.0.0"
+  }
+}

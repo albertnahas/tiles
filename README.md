@@ -1,12 +1,12 @@
 # Tiles
 
-## Installging dependencies
+## Installing dependencies
 
 1. Go to api directory and run
 ```bash
 npm install
 ```
-2. Go to client directiry and run
+2. Go to client directory and run
 ```bash
 yarn
 ```

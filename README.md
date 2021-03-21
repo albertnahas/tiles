@@ -1,10 +1,23 @@
-# tiles
-## Installging dependencies
+# Tiles
 
-1. Go to api directory and run [npm i]
-2. Go to client directiry and run [yarn]
-3. Run [npm i] on the root directory
+## Installing dependencies
 
-### `npm start`
+1. Go to api directory and run
+```bash
+npm install
+```
+2. Go to client directory and run
+```bash
+yarn
+```
+3. Go to the root directory and run
+```bash
+npm install
+```
 
-Running [npm start] on the root directory will start both projects
+## Starting the project
+
+```bash
+npm start
+```
+on the root directory will start both projects

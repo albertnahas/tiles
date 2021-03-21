@@ -18,7 +18,7 @@ class GameBoard extends React.Component<any> {
   }
   render() {
 
-    const { board, colors, step, won, solveWithAI, tryAgain, reset, solvedByAI, aiHistory, userHistory } = this.props;
+    const { board, colors, step, won, solveWithAI, tryAgain, reset, solvedByAI, solving, aiHistory, userHistory } = this.props;
 
     return <Container className={styles.GameBoard} fluid>
       <Row>
@@ -39,7 +39,7 @@ fewest number of moves possible</p>
 
           {
             !won && <Col style={{ margin: "10px", textAlign: "center" }}>
-              <Button onClick={solveWithAI} variant="primary" type="button">
+              <Button onClick={solveWithAI} variant="outline-primary" disabled={solving} type="button">
                 Solve with AI </Button>
             </Col>
           }
@@ -62,6 +62,11 @@ fewest number of moves possible</p>
           {userHistory.length > 0 && <h5 className="text-center">History</h5>}
           <div className={styles.history}>
             {this.renderHistory(userHistory)}
+          </div>
+
+          {aiHistory.length > 0 && <h5 className="text-center">AI Steps</h5>}
+          <div className={styles.history}>
+            {this.renderHistory(aiHistory)}
           </div>
         </Col>
       </Row>

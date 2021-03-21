@@ -17,7 +17,8 @@ interface GameState {
   started: boolean,
   step: number,
   won: boolean,
-  solvedByAI: boolean
+  solvedByAI: boolean,
+  solving: boolean,
 }
 
 class Game extends React.Component {
@@ -30,7 +31,8 @@ class Game extends React.Component {
     won: false,
     solvedByAI: false,
     userHistory: [],
-    aiHistory: []
+    aiHistory: [],
+    solving: false,
   }
 
   constructor(props: any) {
@@ -60,7 +62,7 @@ class Game extends React.Component {
       this.setState({ colorsCount: value });
   }
   onClickColor = (color: number) => {
-    if (this.state.won) return;
+    if (this.state.won || this.state.solving) return;
     if (color == this.getOriginColor()) return;
     const initialBoard = this.state.currentBoard?.initialBoard!;
     const board = this.state.currentBoard?.board;
@@ -102,6 +104,7 @@ class Game extends React.Component {
     const initialBoard = this.state.currentBoard?.initialBoard!;
     const board = this.state.currentBoard?.initialBoard;
     let { step } = this.state;
+    this.setState({ solving: true })
     const apiUrl = `${apiBaseUrl}solve`;
     const requestOptions = {
       method: 'POST',
@@ -111,7 +114,7 @@ class Game extends React.Component {
     fetch(apiUrl, requestOptions)
       .then(response => response.json())
       .then((data) => {
-        this.setState({ aiHistory: data.history })
+        this.setState({ aiHistory: [...data.history] })
         this.showHistoryAndFinish(data, initialBoard);
       });
   }
@@ -127,7 +130,7 @@ class Game extends React.Component {
         this.setState({ currentBoard: board });
         this.showHistoryAndFinish(data, initialBoard);
       } else {
-        this.setState({ step: data.steps, won: true, solvedByAI: true })
+        this.setState({ step: data.steps, won: true, solvedByAI: true, solving: false })
       }
     }, 300)
   }
@@ -180,7 +183,8 @@ class Game extends React.Component {
         reset={this.reset}
         solvedByAI={this.state.solvedByAI}
         userHistory={this.state.userHistory}
-        aiHistory={this.state.aiHistory} />
+        aiHistory={this.state.aiHistory}
+        solving={this.state.solving} />
       </div>
   }
 }

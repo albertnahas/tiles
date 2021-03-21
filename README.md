@@ -10,6 +10,10 @@ npm install
 ```bash
 yarn
 ```
+if you don't have yarn already installed you can do that by running
+```bash
+npm install --global yarn
+```
 3. Go to the root directory and run
 ```bash
 npm install

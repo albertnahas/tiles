@@ -133,16 +133,4 @@ export default class Engine {
         const color = this.getOrigin().val;
         return this.board.filter((row) => row.every(col => col === color)).length === this.board.length;
     }
-    toString() {
-        let stringArr = '';
-        for (const row of this.board) {
-            for (const col of row) {
-                stringArr += ` ${row[col]}`;
-            }
-            stringArr += `\n`;
-        }
-
-        return stringArr;
-        return this.board;
-    }
 }

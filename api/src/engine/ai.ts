@@ -6,9 +6,12 @@ export default class AI {
 
 
     constructor() {
-
     }
 
+    // Solve a specific board with AI
+    /* history: the steps of the soluction
+     board: final board
+     steps: how many steps it took to solve the board */
     solve(board: number[][]) {
         const engine: Engine = new Engine();
         engine.setBoard(board);
@@ -31,7 +34,7 @@ export default class AI {
             steps
         }
     }
-
+    // Returns the most repeated color in array of Cells
     getMostFrequentColor(cells: Cell[]) {
         return cells.sort((a, b) =>
             cells.filter(v => v.val === a.val).length

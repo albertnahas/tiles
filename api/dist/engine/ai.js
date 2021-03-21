@@ -7,6 +7,10 @@ const engine_1 = __importDefault(require("./engine"));
 class AI {
     constructor() {
     }
+    // Solve a specific board with AI
+    /* history: the steps of the soluction
+     board: final board
+     steps: how many steps it took to solve the board */
     solve(board) {
         const engine = new engine_1.default();
         engine.setBoard(board);
@@ -28,6 +32,7 @@ class AI {
             steps
         };
     }
+    // Returns the most repeated color in array of Cells
     getMostFrequentColor(cells) {
         return cells.sort((a, b) => cells.filter(v => v.val === a.val).length
             - cells.filter(v => v.val === b.val).length).pop();

@@ -9,11 +9,11 @@ export default class Engine {
             this.board = this.generateBoard(dimensions, colors);
         }
     }
-
+    // Set the board after initialize
     setBoard(board: number[][]) {
         this.board = board;
     }
-
+    // Returns the value of a cell (coordinates and color)
     getCell(y: number, x: number): Cell {
         return {
             x,
@@ -25,6 +25,7 @@ export default class Engine {
                 this.board[y][x] : undefined
         };
     }
+    // Returns the origin cell at the top left corner
     getOrigin(): Cell {
         return {
             x: 0,
@@ -32,6 +33,7 @@ export default class Engine {
             val: this.board[0][0]
         };
     }
+    // Generate a new board randomly based on dimensions and colors count
 
     generateBoard(dimensions: number, colors: number) {
         const arr: number[][] = [];
@@ -44,14 +46,14 @@ export default class Engine {
 
         return arr;
     }
-
+    // Change the origin cell color and convert adjacent cell to the same color
     setOriginAndAdjacents(color: number) {
         const origin: Cell = this.getOrigin();
         this.board[origin.y][origin.x] = color;
         this.convertAdjacents(origin, color, origin.val);
         return this.board;
     }
-
+    // Returns all direct adjacent cells
     getAdjacents(y: number, x: number) {
         return [
             this.getCell(y - 1, x),
@@ -60,6 +62,7 @@ export default class Engine {
             this.getCell(y, x - 1),
         ].filter((c) => c.val !== undefined)
     }
+    // Convert adjacent cells to targetColor
 
     convertAdjacents(cell: Cell, color: number, tagetColor: number, visited: Cell[] = []) {
         if (this.checkWin()) return;
@@ -74,6 +77,8 @@ export default class Engine {
         }
     }
 
+    // Returns all cells that has path with the passed cell
+    // including cells of the same color and different colors on the cluster edges
     getCluster(cell: Cell, visited: Cell[] = []) {
         const color = cell.val;
         let cluster: Cell[] = [];
@@ -84,7 +89,6 @@ export default class Engine {
         for (const adj of adjacents) {
             const isVisited = visited.filter((c) => c.x === adj.x && c.y === adj.y).length;
             if (!isVisited && adj.val === color) {
-                // visited = visited.concat(cluster);
                 const { sameColoredAdjancents, differentColoredAdjacents } = this.getCluster(adj, visited);
                 cluster = cluster.concat(sameColoredAdjancents);
                 neighbors = neighbors.concat(differentColoredAdjacents);
@@ -99,7 +103,7 @@ export default class Engine {
         };
     }
 
-
+    // Get the number of colors on the board
     getColorsCount() {
         let array: number[] = [];
         for (const row of this.board) {
@@ -108,7 +112,7 @@ export default class Engine {
         const unique = [...new Set(array)];
         return unique.length;
     }
-
+    // Return a copy of the current board
     cloneBoard() {
         const board = this.board.map((arr) => {
             return arr.slice();
@@ -116,6 +120,7 @@ export default class Engine {
         return board;
     }
 
+    // Test if the board has only one color left
     checkWin() {
         const color = this.getOrigin().val;
         return this.board.filter((row) => row.every(col => col === color)).length === this.board.length;

@@ -3,7 +3,8 @@ import { Button, Col, Row } from 'react-bootstrap';
 import GameBoard from '../GameBoard/GameBoard';
 
 import GameForm from '../GameForm/GameForm';
-import { Board } from '../models/Board';
+import { Board } from '../../models/Board';
+import { apiBaseUrl } from '../../consts';
 
 
 interface GameState {
@@ -11,7 +12,8 @@ interface GameState {
   colorsCount: number,
   dimensions: number,
   currentBoard?: Board,
-  history?: Board[],
+  aiHistory?: any[],
+  userHistory?: any[],
   started: boolean,
   step: number,
   won: boolean,
@@ -26,7 +28,9 @@ class Game extends React.Component {
     dimensions: 0,
     step: 0,
     won: false,
-    solvedByAI: false
+    solvedByAI: false,
+    userHistory: [],
+    aiHistory: []
   }
 
   constructor(props: any) {
@@ -54,7 +58,8 @@ class Game extends React.Component {
     const initialBoard = this.state.currentBoard?.initialBoard!;
     const board = this.state.currentBoard?.board;
     let { step } = this.state;
-    const apiUrl = `http://localhost:3002/tiles`;
+    this.setState({ userHistory: [...this.state.userHistory!, board] })
+    const apiUrl = `${apiBaseUrl}tiles`;
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -72,7 +77,7 @@ class Game extends React.Component {
   }
 
   onSubmit = () => {
-    const apiUrl = `http://localhost:3002/tiles/${this.state.dimensions}/${this.state.colorsCount}`;
+    const apiUrl = `${apiBaseUrl}tiles/${this.state.dimensions}/${this.state.colorsCount}`;
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -90,7 +95,7 @@ class Game extends React.Component {
     const initialBoard = this.state.currentBoard?.initialBoard!;
     const board = this.state.currentBoard?.initialBoard;
     let { step } = this.state;
-    const apiUrl = `http://localhost:3002/solve`;
+    const apiUrl = `${apiBaseUrl}solve`;
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -99,6 +104,7 @@ class Game extends React.Component {
     fetch(apiUrl, requestOptions)
       .then(response => response.json())
       .then((data) => {
+        this.setState({ aiHistory: data.history })
         this.showHistoryAndFinish(data, initialBoard);
       });
   }
@@ -127,7 +133,9 @@ class Game extends React.Component {
         initialBoard: this.state.currentBoard?.initialBoard,
         board: this.state.currentBoard?.initialBoard
       },
-      solvedByAI: false
+      solvedByAI: false,
+      userHistory: [],
+      aiHistory: []
     })
   }
   reset = () => {
@@ -136,9 +144,11 @@ class Game extends React.Component {
       step: 0,
       currentBoard: undefined,
       solvedByAI: false,
-      started:false,
-      dimensions:0,
-      colorsCount:0
+      started: false,
+      dimensions: 0,
+      colorsCount: 0,
+      userHistory: [],
+      aiHistory: []
     })
   }
 
@@ -165,8 +175,8 @@ class Game extends React.Component {
           <div style={{ margin: "10px", textAlign: "center" }}>
             <Button onClick={this.tryAgain} variant="secondary" type="button">
               Try Again </Button>
-            <Button style={{marginLeft:"30px"}} onClick={this.reset} variant="light" type="button">
-              Reset </Button>
+            <Button style={{ marginLeft: "30px" }} onClick={this.reset} variant="success" type="button">
+              New Game </Button>
           </div>
         }
       </div>

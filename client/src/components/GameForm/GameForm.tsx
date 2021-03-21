@@ -10,26 +10,31 @@ class GameForm extends React.Component<any> {
     const { dimensionsHandler, colorsHandler, onSubmit } = this.props;
 
     return <Container className={styles.GameForm} fluid>
+       <Row>
+         <Col style={{textAlign:"center"}}>
+            <h1>Start a New Game</h1>
+         </Col>
+       </Row>
       <Row>
         <Col xs lg={{ span: 4, offset: 4 }}>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Dimensions</Form.Label>
-              <Form.Control onChange={dimensionsHandler} type="number" placeholder="Enter Dimension" />
-              <Form.Text className="text-muted">
+              <Form.Control min="0" max="10" onChange={dimensionsHandler} type="number" placeholder="Enter Dimension" />
+              <Form.Text  className="text-muted">
                 A number represents the dimensions of the board
   </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Colors</Form.Label>
-              <Form.Control onChange={colorsHandler} type="number" placeholder="Enter Number of Colors" />
+              <Form.Control min="0" max="100" onChange={colorsHandler} type="number" placeholder="Enter Number of Colors" />
               <Form.Text className="text-muted">
                 A number represents the number of colors on the board
   </Form.Text>
             </Form.Group>
             <Button onClick={onSubmit} variant="primary" type="button">
-              Submit
+              Start
 </Button>
           </Form>
         </Col>

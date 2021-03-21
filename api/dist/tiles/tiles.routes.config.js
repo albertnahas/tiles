@@ -12,6 +12,7 @@ class TilesRoutes extends common_routes_config_1.CommonRoutesConfig {
         super(app, 'UsersRoutes');
     }
     configureRoutes() {
+        // get board by dimensions and colors count
         this.app.route(`/tiles/:dimensions/:colors`)
             .get((req, res) => {
             const dimensions = parseInt(req.params.dimensions, 10);
@@ -20,6 +21,7 @@ class TilesRoutes extends common_routes_config_1.CommonRoutesConfig {
             const message = engine.toString();
             res.status(200).send(engine.board);
         });
+        // submit selected color and return the new board
         this.app.route(`/tiles`)
             .post((req, res) => {
             const color = parseInt(req.body.color, 10);
@@ -32,6 +34,7 @@ class TilesRoutes extends common_routes_config_1.CommonRoutesConfig {
                 won: engine.checkWin()
             });
         });
+        // solve the board with AI
         this.app.route(`/solve`)
             .post((req, res) => {
             const board = req.body.board;

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styles from './GameBoard.module.css';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Board } from '../models/Board';
+import { Board } from '../../models/Board';
 
 
 class GameBoard extends React.Component<any> {

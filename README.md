@@ -1,4 +1,4 @@
-### Tiles
+# Tiles
 
 ## Installging dependencies
 
@@ -15,7 +15,7 @@ yarn
 npm install
 ```
 
-# Starting the project
+## Starting the project
 
 ```bash
 npm start

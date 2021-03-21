@@ -14,6 +14,9 @@ yarn
 npm install
 ```
 
-## `npm start`
+# Starting the project
 
-Running [npm start] on the root directory will start both projects
+```bash
+npm install
+```
+on the root directory will start both projects

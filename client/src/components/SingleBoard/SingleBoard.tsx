@@ -13,7 +13,8 @@ class SingleBoard extends React.Component<any> {
     return size + isMini;
   }
   renderBoard(board: number[][], colors: Array<string>): ReactNode {
-    const size = this.getSize(board.length);
+    if (!board) return;
+    const size = this.getSize(length);
     return board.map((cols, index) => {
       return (
         <div key={index}>

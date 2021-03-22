@@ -7,6 +7,7 @@ import SingleBoard from '../SingleBoard/SingleBoard';
 class GameBoard extends React.Component<any> {
 
   renderHistory(history: number[][][]): ReactNode {
+    if (!history) return;
     const { colors } = this.props;
     return history.map((board, index) => {
       return (
@@ -59,12 +60,12 @@ fewest number of moves possible</p>
 
         </Col>
         <Col className={styles.board} xs lg={{ span: 3 }}>
-          {userHistory.length > 0 && <h5 className="text-center">History</h5>}
+          {userHistory && userHistory.length > 0 && <h5 className="text-center">History</h5>}
           <div className={styles.history}>
             {this.renderHistory(userHistory)}
           </div>
 
-          {aiHistory.length > 0 && <h5 className="text-center">AI Steps</h5>}
+          {aiHistory && aiHistory.length > 0 && <h5 className="text-center">AI Steps</h5>}
           <div className={styles.history}>
             {this.renderHistory(aiHistory)}
           </div>

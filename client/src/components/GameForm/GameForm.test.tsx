@@ -1,12 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import GameForm from './GameForm';
 
+Enzyme.configure({ adapter: new Adapter() });
 describe('<GameForm />', () => {
   let component;
 
   beforeEach(() => {
-    component = shallow(<GameForm />);
+    component = Enzyme.shallow(<GameForm />);
   });
 
   test('It should mount', () => {

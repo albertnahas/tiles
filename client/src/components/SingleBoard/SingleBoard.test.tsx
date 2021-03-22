@@ -1,12 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import SingleBoard from './SingleBoard';
 
+
+Enzyme.configure({ adapter: new Adapter() });
 describe('<SingleBoard />', () => {
   let component;
 
   beforeEach(() => {
-    component = shallow(<SingleBoard />);
+    component = Enzyme.shallow(<SingleBoard />);
   });
 
   test('It should mount', () => {

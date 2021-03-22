@@ -1,12 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Game from './Game';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Game />', () => {
   let component;
 
   beforeEach(() => {
-    component = shallow(<Game />);
+    component = Enzyme.shallow(<Game />);
   });
 
   test('It should mount', () => {

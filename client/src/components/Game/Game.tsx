@@ -53,12 +53,12 @@ class Game extends React.Component {
 
   onDimensionsChanged = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-    if (parseInt(value, 10) > 0 && parseInt(value, 10) < 11)
+    if (!value || (parseInt(value, 10) > 1 && parseInt(value, 10) < 11))
       this.setState({ dimensions: value });
   }
   onColorsChanged = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-    if (parseInt(value, 10) > 0 && parseInt(value, 10) < 11)
+    if (!value || (parseInt(value, 10) > 1 && parseInt(value, 10) < 11))
       this.setState({ colorsCount: value });
   }
   onClickColor = (color: number) => {
@@ -86,18 +86,20 @@ class Game extends React.Component {
   }
 
   onSubmit = () => {
-    const apiUrl = `${apiBaseUrl}tiles/${this.state.dimensions}/${this.state.colorsCount}`;
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const board: Board = {
-          board: data,
-          initialBoard: data
-        }
-        this.generateColors();
-        this.setState({ currentBoard: board, started: true })
-      });
+    if (this.state.dimensions && this.state.colorsCount) {
+      const apiUrl = `${apiBaseUrl}tiles/${this.state.dimensions}/${this.state.colorsCount}`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          const board: Board = {
+            board: data,
+            initialBoard: data
+          }
+          this.generateColors();
+          this.setState({ currentBoard: board, started: true })
+        });
 
+    }
   }
   solveWithAI = () => {
     if (this.state.won) return;

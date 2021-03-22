@@ -59,7 +59,6 @@ class AI {
         if (topColors.length === 1) {
             return topColor.val;
         }
-        console.log('we have tie');
         for (const color of topColors) {
             color.boardFrequency = engine.getColorOccurences(color.val);
         }

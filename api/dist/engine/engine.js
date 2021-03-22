@@ -2,8 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Engine {
     constructor(dimensions, colors) {
-        if (dimensions && colors) {
+        if (dimensions && colors && dimensions > 1 && colors > 1) {
             this.board = this.generateBoard(dimensions, colors);
+            // avoid generating a won board
+            while (this.checkWin()) {
+                this.board = this.generateBoard(dimensions, colors);
+            }
         }
     }
     // Set the board after initialize

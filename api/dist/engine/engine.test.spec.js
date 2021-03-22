@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const engine_1 = __importDefault(require("./engine"));
 // import Cell from '../models/cell';
-const engine = new engine_1.default();
-engine.setBoard([[0, 0, 1], [0, 2, 2], [2, 1, 1]]);
 describe('Engine', () => {
+    const engine = new engine_1.default();
+    engine.setBoard([[0, 0, 1], [0, 2, 2], [2, 1, 1]]);
     describe('Origin', () => {
         it('should return top left cell', () => {
             expect(engine.getOrigin().x)
@@ -49,9 +49,10 @@ describe('Engine', () => {
             expect(engine.checkWin())
                 .toEqual(false);
         });
-        engine.setBoard([[1, 1, 1], [1, 1, 1], [1, 1, 1]]);
-        it('should return false', () => {
-            expect(engine.checkWin())
+        const wonEngine = new engine_1.default();
+        wonEngine.setBoard([[1, 1, 1], [1, 1, 1], [1, 1, 1]]);
+        it('should return true', () => {
+            expect(wonEngine.checkWin())
                 .toEqual(true);
         });
     });

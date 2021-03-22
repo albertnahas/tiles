@@ -25,3 +25,11 @@ npm install
 npm start
 ```
 on the root directory will start both projects
+
+
+## Testing the project
+
+```bash
+npm test
+```
+separately for client and api so it will run test cases for each

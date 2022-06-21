@@ -1,4 +1,4 @@
-# Tiles
+# Tiles Game
 
 ## Installing dependencies
 
